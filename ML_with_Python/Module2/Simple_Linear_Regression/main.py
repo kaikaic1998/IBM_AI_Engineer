@@ -35,7 +35,7 @@ plt.xlabel("Engine size")
 plt.ylabel("Emission")
 plt.show()
 
-from sklearn import linear_model
+from sklearn import linear_model #scikit-learn, a machine learning library for Python
 regr = linear_model.LinearRegression()
 train_x = np.asanyarray(train[['ENGINESIZE']])
 train_y = np.asanyarray(train[['CO2EMISSIONS']])
