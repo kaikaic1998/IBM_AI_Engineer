@@ -10,7 +10,7 @@ cdf = df[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_CITY','FUELCONSUMPTION_HWY',
 plt.scatter(cdf.ENGINESIZE, cdf.CO2EMISSIONS,  color='blue')
 plt.xlabel("Engine size")
 plt.ylabel("Emission")
-plt.show()
+# plt.show()
 
 msk = np.random.rand(len(df)) < 0.8
 train = cdf[msk]
@@ -19,7 +19,7 @@ test = cdf[~msk]
 plt.scatter(train.ENGINESIZE, train.CO2EMISSIONS,  color='blue')
 plt.xlabel("Engine size")
 plt.ylabel("Emission")
-plt.show()
+# plt.show()
 
 from sklearn import linear_model
 regr = linear_model.LinearRegression()
@@ -38,13 +38,14 @@ print("Residual sum of squares: %.2f"
 # Explained variance score: 1 is perfect prediction
 print('Variance score: %.2f' % regr.score(x, y))
 
-x = np.asanyarray(train[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_HWY']])
-y = np.asanyarray(train[['CO2EMISSIONS']])
-regr.fit (x, y)
+regr = linear_model.LinearRegression()
+x1 = np.asanyarray(train[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_HWY']])
+y1 = np.asanyarray(train[['CO2EMISSIONS']])
+regr.fit (x1, y1)
 print ('Coefficients: ', regr.coef_)
 
-y_hat = regr.predict(test[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_HWY']])
-x = np.asanyarray(test[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_HWY']])
-y = np.asanyarray(test[['CO2EMISSIONS']])
-print("Residual sum of squares: %.2f" % np.mean((y_hat - y) ** 2))
-print('Variance score: %.2f' % regr.score(x, y))
+y1_hat = regr.predict(test[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_HWY']])
+x1 = np.asanyarray(test[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_HWY']])
+y1 = np.asanyarray(test[['CO2EMISSIONS']])
+print("Residual sum of squares: %.2f" % np.mean((y1_hat - y1) ** 2))
+print('Variance score: %.2f' % regr.score(x1, y1))
