@@ -4,8 +4,18 @@ from torch.utils.data import Dataset, DataLoader, random_split
 
 import pandas as pd
 
-Class 
+# class for neural network
+class net (nn.Module):
+    def __int__(self, D_in, H, D_out):
+        super(net, self).__init__()
+        self.linear1 = nn.Linear(D_in, H)
+        self.linear2 = nn.Linear(H, D_out)
+    def forward(self, x):
+        x = torch.relu(self.linear1(x))
+        x = self.linear2(x)
+        return x
 
+# class for dataset
 class concrete_data (Dataset):
     def __init__(self, file_name):
         file_data = pd.read_csv(file_name)
@@ -38,6 +48,14 @@ train_loader = DataLoader(dataset=train_dataset, batch_size=1)
 validation_loader = DataLoader(dataset=validation_dataset, batch_size=1)
 
 # Loss function
+# Mean suqred error
 criterion = nn.MSELoss()
 
-optimizer = torch.optim.Adam()
+# Get number of inputs
+n_input = len(orig_dataset.x[0])
+
+# create a model with 
+model = net(n_input, 10, 1)
+
+# set optimizer
+optimizer = torch.optim.Adam(model.parameters())
